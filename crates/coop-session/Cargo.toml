@@ -1,0 +1,10 @@
+[package]
+name = "coop-session"
+description = "Host-authoritative co-op session logic, independent of the real game."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+coop-protocol.workspace = true
+coop-net.workspace = true

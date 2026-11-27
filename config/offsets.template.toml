@@ -1,0 +1,50 @@
+# Where God of War Ragnarök keeps things in memory.
+# Fill these in as you find them (docs/REVERSE_ENGINEERING.md), copy next to the DLL as
+# offsets.toml, and check gowr-coop.log: it lists every entry as ok / MISSING / BROKEN.
+#
+# Numbers can be hex (0x1A0). Prefer `pattern` over `rva`: patterns survive game updates.
+#
+#   locate = { pattern = "48 8B 05 ?? ?? ?? ?? 48 85 C0", disp_at = 3, insn_len = 7 }
+#   locate = { rva = 0x4A3B2C0 }            # GoWR.exe + offset — breaks every patch
+#   chain  = [0x10, 0x28]                   # Cheat Engine pointer offsets, in order
+
+game_version = ""
+
+# --- Step 2: the local Kratos ----------------------------------------------------
+# [player]
+# locate = { pattern = "", disp_at = 3, insn_len = 7 }
+# chain = []
+#
+# [player_fields]           # offsets inside the player object
+# pos = 0x0                 # 3 floats (x, y, z)
+# rot = 0x0                 # 4 floats quaternion (x, y, z, w)
+# vel = 0x0
+# health = 0x0              # float
+# max_health = 0x0
+# rage = 0x0
+# anim_id = 0x0             # u32
+# anim_time = 0x0           # float
+
+# --- Step 3: area and cutscene -------------------------------------------------
+# [area]                    # u32 that changes with realm/region
+# locate = { rva = 0x0 }
+# chain = []
+#
+# [cutscene]                # u32, non-zero while a cutscene plays
+# locate = { rva = 0x0 }
+# chain = []
+
+# --- Step 4: enemies ---------------------------------------------------------------
+# [enemies]
+# pointer = { locate = { rva = 0x0 }, chain = [] }
+# array_offset = 0x0        # pointer to an array of entity pointers
+# count_offset = 0x0        # u32 count
+#
+# [enemy_fields]
+# id = 0x0                  # u32 that is the SAME on both PCs (step 5)
+# kind = 0x0
+# pos = 0x0
+# rot = 0x0
+# health = 0x0
+# max_health = 0x0
+# anim_id = 0x0

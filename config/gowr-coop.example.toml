@@ -1,0 +1,17 @@
+# Copy next to gowr-coop.asi in the game folder and rename to gowr-coop.toml.
+
+# "host"  — your world; your friend joins you. Forward the UDP port on your router.
+# "join"  — join a friend's world (set host_address).
+# "off"   — load the mod without networking, to check offsets in gowr-coop.log.
+role = "host"
+
+name = "Kratos"
+
+# Host: UDP port to listen on.
+port = 27015
+
+# Join: the host's public IP (or hostname) and port.
+# host_address = "203.0.113.5:27015"
+
+# 2 for now. Up to 4 once more puppets can be spawned.
+max_players = 2

@@ -1,0 +1,32 @@
+name: CI
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - run: cargo test --workspace
+
+  windows-dll:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - run: cargo test --workspace
+      - run: cargo build --release -p coop-dll -p coop-sim
+      - name: Package
+        shell: bash
+        run: |
+          mkdir dist
+          cp target/release/gowr_coop.dll dist/gowr-coop.asi
+          cp target/release/coop-sim.exe dist/
+          cp config/gowr-coop.example.toml dist/gowr-coop.toml
+          cp config/offsets.template.toml dist/offsets.toml
+      - uses: actions/upload-artifact@v4
+        with:
+          name: gowr-coop-windows
+          path: dist/

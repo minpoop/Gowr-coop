@@ -1,0 +1,11 @@
+[package]
+name = "coop-sim"
+description = "Runs the co-op session with a stand-in game: locally, or between two PCs over real UDP."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+coop-protocol.workspace = true
+coop-net.workspace = true
+coop-session.workspace = true
